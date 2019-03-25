@@ -5,11 +5,12 @@
     "webm",
     "ogv.js",
     "jscodec",
-     "jsvpx"
+    "jsvpx"
   ],
   "scripts": {
-    "build": "webpack",
-    "test": "node test/test.js"
+    "build": "webpack --config webpack.config.js",
+    "test": "npx babel-node test/validate.js",
+    "lint": "eslint src"
   },
   "author": "Brian Parra",
   "contributors": [],
@@ -20,8 +21,19 @@
     "url": "https://github.com/jscodec/jswebm"
   },
   "devDependencies": {
-    "webpack": "^1.13.3",
-    "google-closure-compiler-js": "^20161024.0.0",
-    "ogv" : "^1.3.1"
+    "@babel/core": "^7.1.6",
+    "@babel/node": "^7.0.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^8.0.0-beta.2",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.2.0",
+    "ogv": "^1.3.1",
+    "webpack": "^1.15.0"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.0.0-beta.42",
+    "circular-json": "^0.5.1"
   }
 }

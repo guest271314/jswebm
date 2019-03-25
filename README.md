@@ -1,7 +1,49 @@
 # Webm Demuxer
-A javascript implementation of the Webm Demuxer (matroska).
+A javascript implementation of the Webm Demuxer (matroska). View a demo of a dumux result [here](https://jscodec.github.io/jswebm/)
+Better examples and reworked api coming soon.
+# API Proposal
+## JsWebm
+### Properties
+Top Level wrapper and interface.
+* `videoPackets` : Array of demuxed video packets
+* `audioPackets` : Array of demuxed audio packets
+*  `eof` : Boolean, if the end of the file has been reached
+### Functions
+* `queueData(buffer)` : queue an incoming chunck of data, must be sequential
+* `demux()` : Attempts to parse up to 1 new packet, maybe return promise and reject if current buffer runs out
 
-Building for the OGV.js project.
+# Example
+```javascript
+const demuxer = new JsWebm();
+demuxer.queueData(buffer);
+while (!demuxer.eof) {
+  demuxer.demux();
+}
+console.log(demuxer);
+console.log(`total video packets : ${demuxer.videoPackets.length}`);
+console.log(`total audio packets : ${demuxer.audioPackets.length}`);
+```
+
+### Packet format
+```Javascript
+{
+  data: ArrayBuffer(3714) {},
+  isKeyframe: false,
+  keyframeTimestamp: 0,
+  timestamp: 0,
+}
+```
+# Webm Demuxer
+Running the demo
+`npm install`
+`node test/example.js`
+Then put your example file in the test folder, then in customFileExample.js, put the file name there.
+
+`fileRequest.open("GET", "PUT YOUR SAMPLE FILE HERE", true);`
+
+It will print the demuxer state to the console after processing it.
+
+Will be updating the demo this week and the readme since the api is totally out of date. Will take suggestions on api. Any help is welcome, project needs a lot of maintenance.
 
 ## Change Log
 * V0.0.3
@@ -50,62 +92,5 @@ __Closeup of Vint or Element ID__
 
 # API
 
-## Properties
-`audioCodec` String describing the audio codec
-
-`audioFormat`
-
-`videoCodec` Plain text readable video codec string
-
-`videoFormat`
-
-`videoPackets`
-
-`audioPackets`
-
-`loadedMetadata`
-
-`frameReady`
-
-`audioReady`
-
-`cpuTime`
-
-`duration`
-
-`tracks`
-
-`processing`
-
-`seekable`
-
-## Methods
-`onseek`
-
-`init():Promise`
-
-`receiveInput`
-
-`process(data:ArrayBuffer):Promise`
-
-`dequeueAudioPacket(callback)`
-
-`dequeueVideoPacket(callback)`
-
-`flush(callback)`
-
-`getKeypointOffset(timeSeconds, callback)`
-
-`seekToKeypoint(timeSeconds, callback)`
-
-`onpacket: function(event:Event)|null`
-
-`getKeypointOffset(timeSeconds:number):Promise`
-
-`flush():Promise`
-
-`close()`
-
-
-
+Coming Soon!
 
